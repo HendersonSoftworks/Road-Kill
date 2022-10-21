@@ -12,11 +12,17 @@ public class EnemyController : MonoBehaviour
     private Quaternion lookRotation;
     private Vector3 playerDirection;
 
+
+    // rotation values
+    [SerializeField] private Vector3 enemyDirection;
+    [SerializeField] private float enemyAngle;
+
     void Start()
     {
         player = GameObject.FindObjectOfType<PlayerController>().gameObject;
         // Define the playerPos as slightly behind player so car zooms by
-        playerPos = new Vector3(player.transform.position.x, 3, player.transform.position.z - 10)  ;        
+        playerPos = new Vector3(player.transform.position.x, 2f, player.transform.position.z - 10)  ;
+        transform.rotation.Set(enemyDirection.x, enemyDirection.y, enemyDirection.z, 0);
     }
 
     void Update()
@@ -37,7 +43,7 @@ public class EnemyController : MonoBehaviour
             playerDirection = (player.transform.position - transform.position).normalized;
 
             //create the rotation we need to be in to look at the target
-            lookRotation = Quaternion.LookRotation(playerDirection);
+            lookRotation = Quaternion.LookRotation(-playerDirection);
 
             //rotate us over time according to speed until we are in the required rotation
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * speed);
