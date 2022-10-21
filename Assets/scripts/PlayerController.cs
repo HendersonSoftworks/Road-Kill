@@ -12,15 +12,19 @@ public class PlayerController : MonoBehaviour
     private enum direction { left, neutral, right}
     [SerializeField]direction dir;
     [SerializeField] bool isGrounded = true;
-    [SerializeField] float resetJumpPos = 2.3f;
+    [SerializeField] float resetJumpPos;
+    [SerializeField] private Animator animator;
 
     private void Start()
     {
         dir = direction.neutral;
+        resetJumpPos = transform.position.y;
     }
 
     void Update()
     {
+        ManageAnimation();
+
         // Disable input when in air
         if (isGrounded != false)
         {
@@ -36,7 +40,16 @@ public class PlayerController : MonoBehaviour
             else if (transform.position.y <= resetJumpPos)
             {
                 isGrounded = true;
+                animator.SetBool("jump", false);
             }
+        }
+    }
+
+    private void ManageAnimation()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded != false)
+        {
+            animator.SetBool("jump", true);
         }
     }
 
