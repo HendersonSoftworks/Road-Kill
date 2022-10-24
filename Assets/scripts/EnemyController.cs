@@ -23,6 +23,7 @@ public class EnemyController : MonoBehaviour
         // Define the playerPos as slightly behind player so car zooms by
         playerPos = new Vector3(player.transform.position.x, 2f, player.transform.position.z - 10)  ;
         transform.rotation.Set(enemyDirection.x, enemyDirection.y, enemyDirection.z, 0);
+
     }
 
     void Update()

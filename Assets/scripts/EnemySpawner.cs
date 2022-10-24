@@ -11,13 +11,25 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private float timerDuration;
     private float timer;
 
+    [SerializeField] DeathManager deathManager;
+
     private void Start()
     {
         timer = timerDuration;
+
+        deathManager = FindObjectOfType<DeathManager>();
+
     }
 
     private void Update()
     {
+        // Return if character is dead
+        if (deathManager.isDead)
+        {
+            return;
+        }
+
+
         timer -= Time.deltaTime;
         if (timer <= 0)
         {

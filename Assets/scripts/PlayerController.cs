@@ -15,14 +15,24 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float resetJumpPos;
     [SerializeField] private Animator animator;
 
+    [SerializeField] private DeathManager deathManager;
+
     private void Start()
     {
         dir = direction.neutral;
         resetJumpPos = transform.position.y;
+
+        deathManager = FindObjectOfType<DeathManager>();
     }
 
     void Update()
     {
+        if (deathManager.isDead)
+        {
+            animator.SetBool("dead", true);
+            return;
+        }
+
         ManageAnimation();
 
         // Disable input when in air
