@@ -15,6 +15,10 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private GameObject scream;
 
+    [SerializeField] private GameObject player;
+
+    [SerializeField] private GameObject pausePanel;
+
     void Start()
     {
         deathManager = FindObjectOfType<DeathManager>();
@@ -30,9 +34,31 @@ public class GameManager : MonoBehaviour
         {
             DisableThoughts();
             scream.SetActive(true);
-            // TO DO: Play scream sound
 
             return;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape) && Time.timeScale == 1) 
+        {
+            Time.timeScale = 0;
+
+            PauseAllAudio();
+
+            player.SetActive(false);
+
+            // Show menu
+            pausePanel.SetActive(true);
+        }
+        else if (Input.GetKeyDown(KeyCode.Escape) && Time.timeScale == 0)
+        {
+            Time.timeScale = 1;
+
+            ResumeAllAudio();
+
+            player.SetActive(true);
+
+            // Hide menu
+            pausePanel.SetActive(false);
         }
 
         // Thoughts
@@ -70,6 +96,24 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < thoughts.Length; i++)
         {
             thoughts[i].SetActive(false);
+        }
+    }
+
+    private void PauseAllAudio()
+    {
+        var audioSources = GameObject.FindObjectsOfType<AudioSource>();
+        foreach (AudioSource source in audioSources)
+        {
+            source.Pause();
+        }
+    }
+
+    private void ResumeAllAudio()
+    {
+        var audioSources = GameObject.FindObjectsOfType<AudioSource>();
+        foreach (AudioSource source in audioSources)
+        {
+            source.UnPause();
         }
     }
 }
