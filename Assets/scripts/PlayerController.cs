@@ -10,8 +10,8 @@ public class PlayerController : MonoBehaviour
     private float gravityValue = -9.81f;
     [SerializeField] private int boundsX;
     private enum direction { left, neutral, right}
-    [SerializeField]direction dir;
-    [SerializeField] bool isGrounded = true;
+    [SerializeField]direction dir; // debug info only
+    [SerializeField] public bool isGrounded = true;
     [SerializeField] float resetJumpPos;
     [SerializeField] private Animator animator;
 

@@ -62,6 +62,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 39024a2c32c886c41bfe6f21c7633bea, type: 3}
   canBeep: 1
   currentDist: 0
+  jumpOverDist: 2.23
 --- !u!82 &-5995131658890946657
 AudioSource:
   m_ObjectHideFlags: 0

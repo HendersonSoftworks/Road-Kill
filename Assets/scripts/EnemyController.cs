@@ -25,6 +25,11 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private bool canBeep = true;
     [SerializeField] private float currentDist;
 
+    // Stats
+    [SerializeField] private float jumpOverDist;
+    [SerializeField] private bool canLogJump = true;
+
+
     void Start()
     {
         player = GameObject.FindObjectOfType<PlayerController>().gameObject;
@@ -49,6 +54,17 @@ public class EnemyController : MonoBehaviour
             audioSource.PlayOneShot(honks[rand]);
         }
 
+        // check if being jumped over
+        if (currentDist <= jumpOverDist && player.GetComponent<PlayerController>().isGrounded == false && canLogJump)
+        {
+            canLogJump = false;
+
+            int totalJumps = PlayerPrefs.GetInt("jumps");
+            PlayerPrefs.SetInt("jumps", totalJumps + 1);
+
+            Debug.Log("Total jumps: " + PlayerPrefs.GetInt("jumps"));
+        }
+
         // Move towards the position defined on spawn in
         transform.position = Vector3.MoveTowards(transform.position, playerPos, speed * Time.deltaTime);
         // despawn car when behind player
@@ -70,5 +86,10 @@ public class EnemyController : MonoBehaviour
             //rotate us over time according to speed until we are in the required rotation
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * speed);
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawSphere(transform.position, jumpOverDist);
     }
 }
