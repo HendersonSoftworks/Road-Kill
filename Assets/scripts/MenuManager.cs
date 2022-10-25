@@ -10,6 +10,9 @@ public class MenuManager : MonoBehaviour
     [SerializeField] float restartTimerDuration;
     [SerializeField] float restartTimer;
 
+    [SerializeField] GameObject helpPanel;
+    [SerializeField] GameObject mainPanel;
+
     private void Start()
     {
         currentScene = SceneManager.GetActiveScene();
@@ -33,6 +36,15 @@ public class MenuManager : MonoBehaviour
                 }
             }
         }
+
+        if (currentScene.name == "menu")
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                mainPanel.SetActive(true);
+                helpPanel.SetActive(false);
+            }
+        }
     }
 
     public void LoadMainScene()
@@ -43,5 +55,11 @@ public class MenuManager : MonoBehaviour
     public void LoadmenuScene()
     {
         SceneManager.LoadScene("menu");
+    }
+
+    public void ShowHelp()
+    {
+        mainPanel.SetActive(false);
+        helpPanel.SetActive(true);
     }
 }
