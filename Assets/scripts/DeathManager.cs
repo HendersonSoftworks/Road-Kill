@@ -8,10 +8,9 @@ public class DeathManager : MonoBehaviour
 
     [SerializeField] Quaternion playerRot;
 
-    private void Start()
-    {
-        //playerRot = transform.rotation;
-    }
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip screamClip;
+    [SerializeField] AudioClip imSorryClip;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -19,8 +18,12 @@ public class DeathManager : MonoBehaviour
         
         Debug.Log("Collided with: " + other.name);
         isDead = true;
-        transform.position = new Vector3(transform.position.x, 1.8f, transform.position.z);
+        transform.position = new Vector3(transform.position.x, 2.5f, transform.position.z);
 
-
+        audioSource.Stop();
+        audioSource.clip = screamClip;
+        audioSource.PlayOneShot(screamClip);
+        audioSource.volume = 0.2f;
+        audioSource.PlayOneShot(imSorryClip);
     }
 }

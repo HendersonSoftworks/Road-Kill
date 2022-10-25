@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     
     [SerializeField] private DeathManager deathManager;
 
+    [SerializeField] private GameObject scream;
+
     void Start()
     {
         deathManager = FindObjectOfType<DeathManager>();
@@ -26,6 +28,10 @@ public class GameManager : MonoBehaviour
     {
         if (deathManager.isDead)
         {
+            DisableThoughts();
+            scream.SetActive(true);
+            // TO DO: Play scream sound
+
             return;
         }
 
@@ -37,10 +43,8 @@ public class GameManager : MonoBehaviour
             int rand = Random.Range(0, thoughts.Length);
 
             // Disable other thoughts
-            for (int i = 0; i < thoughts.Length; i++)
-            {
-                thoughts[i].SetActive(false);
-            }
+            DisableThoughts();
+
             // Enable random thought
             thoughts[rand].SetActive(true);
 
@@ -59,5 +63,13 @@ public class GameManager : MonoBehaviour
         }
 
         distanceText.text = distance.ToString("0.0");
+    }
+
+    private void DisableThoughts()
+    {
+        for (int i = 0; i < thoughts.Length; i++)
+        {
+            thoughts[i].SetActive(false);
+        }
     }
 }

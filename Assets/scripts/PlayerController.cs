@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float playerSpeed;
     [SerializeField] private float fallSpeed;
 
-    private float jumpHeight = 1.0f;
+    [SerializeField] private float jumpHeight = 2.5f;
     private float gravityValue = -9.81f;
     [SerializeField] private int boundsX;
     private enum direction { left, neutral, right}
@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Animator animator;
 
     [SerializeField] private DeathManager deathManager;
+
+    [SerializeField] private AudioSource audioSource;
 
     private void Start()
     {
@@ -36,9 +38,14 @@ public class PlayerController : MonoBehaviour
         ManageAnimation();
 
         // Disable input when in air
-        if (isGrounded != false)
+        if (isGrounded == true)
         {
             ManageInput();
+            // Manage running audio
+            if (audioSource.isPlaying == false)
+            {
+                audioSource.Play();
+            }
         }
         // Falling
         if (isGrounded == false)
@@ -51,6 +58,12 @@ public class PlayerController : MonoBehaviour
             {
                 isGrounded = true;
                 animator.SetBool("jump", false);
+            }
+
+            // Stop running audio when jumping
+            if (audioSource.isPlaying)
+            {
+                audioSource.Stop();
             }
         }
     }
@@ -90,7 +103,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded != false)
         {
             // player jumps straight up
-            gameObject.transform.position = new Vector3(transform.position.x, transform.position.y * 2.5f, transform.position.z);
+            gameObject.transform.position = new Vector3(transform.position.x, transform.position.y * jumpHeight, transform.position.z);
             isGrounded = false;
         }
         // Set to neutral position when keys are released

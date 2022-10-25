@@ -7,6 +7,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private GameObject player;
     [SerializeField] private Vector3 playerPos;
     [SerializeField] float speed;
+    [SerializeField] float despawnDistance;
 
     //values for internal use
     private Quaternion lookRotation;
@@ -17,17 +18,37 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private Vector3 enemyDirection;
     [SerializeField] private float enemyAngle;
 
+    // Audio
+    [SerializeField] private float beepDistance;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip[] honks;
+    [SerializeField] private bool canBeep = true;
+    [SerializeField] private float currentDist;
+
     void Start()
     {
         player = GameObject.FindObjectOfType<PlayerController>().gameObject;
         // Define the playerPos as slightly behind player so car zooms by
-        playerPos = new Vector3(player.transform.position.x, 2f, player.transform.position.z - 10)  ;
+        //playerPos = new Vector3(player.transform.position.x, 2f, player.transform.position.z)  ;
+        playerPos = new Vector3(player.transform.position.x, 2f, player.transform.position.z - despawnDistance);
+
         transform.rotation.Set(enemyDirection.x, enemyDirection.y, enemyDirection.z, 0);
 
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
     {
+        // Get dist from Player
+        currentDist = Vector3.Distance(transform.position, player.transform.position);
+        // Beep if near player
+        if (currentDist <= beepDistance && canBeep)
+        {
+            int rand = Random.Range(0, honks.Length);
+            canBeep = false;
+            audioSource.PlayOneShot(honks[rand]);
+        }
+
         // Move towards the position defined on spawn in
         transform.position = Vector3.MoveTowards(transform.position, playerPos, speed * Time.deltaTime);
         // despawn car when behind player
