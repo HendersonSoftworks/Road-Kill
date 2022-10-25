@@ -19,6 +19,11 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private GameObject pausePanel;
 
+    private void Awake()
+    {
+        Time.timeScale = 1;
+    }
+
     void Start()
     {
         deathManager = FindObjectOfType<DeathManager>();
