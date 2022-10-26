@@ -22,6 +22,12 @@ public class MenuManager : MonoBehaviour
     private void Awake()
     {
         PlayerPrefs.Save();
+
+        Screen.SetResolution(640, 480, true);
+
+        Time.timeScale = 1;
+
+        //Screen.fullScreen = false;
     }
 
     private void Start()

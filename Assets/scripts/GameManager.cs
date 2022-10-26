@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene("cutscene_story_end");
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape) && Time.timeScale == 1) 
+        if (Input.GetKeyDown(KeyCode.P) && Time.timeScale == 1) 
         {
             Time.timeScale = 0;
 
@@ -75,16 +75,9 @@ public class GameManager : MonoBehaviour
             // Show menu
             pausePanel.SetActive(true);
         }
-        else if (Input.GetKeyDown(KeyCode.Escape) && Time.timeScale == 0)
+        else if (Input.GetKeyDown(KeyCode.P) && Time.timeScale == 0)
         {
-            Time.timeScale = 1;
-
-            ResumeAllAudio();
-
-            player.SetActive(true);
-
-            // Hide menu
-            pausePanel.SetActive(false);
+            Resumegame();
         }
 
         // Thoughts
@@ -149,5 +142,17 @@ public class GameManager : MonoBehaviour
         {
             source.UnPause();
         }
+    }
+
+    public void Resumegame()
+    {
+        Time.timeScale = 1;
+
+        ResumeAllAudio();
+
+        player.SetActive(true);
+
+        // Hide menu
+        pausePanel.SetActive(false);
     }
 }
