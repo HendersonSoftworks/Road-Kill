@@ -50,7 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   playerPos: {x: 0, y: 0, z: 0}
-  speed: 30
+  speed: 25
   despawnDistance: 40
   enemyDirection: {x: 0, y: 0, z: 0}
   enemyAngle: 0
@@ -63,6 +63,7 @@ MonoBehaviour:
   canBeep: 1
   currentDist: 0
   jumpOverDist: 2.23
+  canLogJump: 1
 --- !u!82 &-5995131658890946657
 AudioSource:
   m_ObjectHideFlags: 0
@@ -428,8 +429,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.03387934, y: 0.020656051, z: 0.0091157565}
-  m_Center: {x: 0, y: -0.020266736, z: -0.0046028346}
+  m_Size: {x: 0.03387934, y: 0.004470442, z: 0.0091157565}
+  m_Center: {x: 0, y: -0.028359694, z: -0.004602835}
 --- !u!4 &9079791637672293819 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 556f132a810e3424ebfcd7592afe95b6, type: 3}

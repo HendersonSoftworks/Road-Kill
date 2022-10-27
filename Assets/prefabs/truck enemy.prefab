@@ -52,7 +52,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   playerPos: {x: 0, y: 0, z: 0}
-  speed: 15
+  speed: 10
   despawnDistance: 40
   enemyDirection: {x: 0, y: 0, z: 0}
   enemyAngle: 0
@@ -64,6 +64,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 39024a2c32c886c41bfe6f21c7633bea, type: 3}
   canBeep: 1
   currentDist: 0
+  jumpOverDist: 0
+  canLogJump: 1
 --- !u!65 &8131146460705976310
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -75,8 +77,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.1730325, y: 2.0580819, z: 17.833984}
-  m_Center: {x: 0.04479468, y: 1.1227331, z: 5.885632}
+  m_Size: {x: 2.526949, y: 2.0580819, z: 16.732252}
+  m_Center: {x: -0.09764409, y: 1.1227331, z: 5.334762}
 --- !u!82 &1769795583389309078
 AudioSource:
   m_ObjectHideFlags: 0
@@ -282,7 +284,6 @@ GameObject:
   - component: {fileID: 276538064187572524}
   - component: {fileID: 4385339254149076450}
   - component: {fileID: 2263310241614465356}
-  - component: {fileID: 3819153856322798005}
   m_Layer: 0
   m_Name: trailer
   m_TagString: Untagged
@@ -355,19 +356,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3819153856322798005
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4801012480637905225}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0.00000011920929, z: 0}
 --- !u!1 &7304544070693458891
 GameObject:
   m_ObjectHideFlags: 0

@@ -52,6 +52,10 @@ public class EnemyController : MonoBehaviour
             int rand = Random.Range(0, honks.Length);
             canBeep = false;
             audioSource.PlayOneShot(honks[rand]);
+
+            // If close enough to beep, then start the process of spawning another enemy
+            EnemySpawner enemySpawner = FindObjectOfType<EnemySpawner>();
+            enemySpawner.enemyActive = false;
         }
 
         // check if being jumped over
@@ -71,6 +75,7 @@ public class EnemyController : MonoBehaviour
         if (transform.position == playerPos)
         {
             Destroy(gameObject);
+
         }
 
         float distance = Vector3.Distance(player.transform.position, transform.position);

@@ -10,6 +10,8 @@ public class EnemySpawner : MonoBehaviour
 
     [SerializeField] private float timerDuration;
     private float timer;
+    [SerializeField] public bool enemyActive;
+    [SerializeField] GameObject currentEnemy;
 
     [SerializeField] DeathManager deathManager;
 
@@ -29,25 +31,29 @@ public class EnemySpawner : MonoBehaviour
             return;
         }
 
+        if (enemyActive == false)
+        {
+            timer -= Time.deltaTime;
+        }
 
-        timer -= Time.deltaTime;
         if (timer <= 0)
         {
             ResetTimer();
-            SpawnEnemy();
+            currentEnemy = SpawnEnemy();
+            enemyActive = true;
         }
     }
 
-    public void SpawnEnemy()
+    public GameObject SpawnEnemy()
     {
         // Choose enemy type
         int randEnemy = Random.Range(0, enemies.Length);
         // Choose spawner
         int randSpawner = Random.Range(0, spawners.Length);
         // Spawn enemy
-        Instantiate(enemies[randEnemy], spawners[randSpawner].transform.position, Quaternion.identity);
-        //Instantiate(enemies[randEnemy]);
+        var enemy = Instantiate(enemies[randEnemy], spawners[randSpawner].transform.position, Quaternion.identity);
 
+        return enemy;
     }
 
     public void ResetTimer()
